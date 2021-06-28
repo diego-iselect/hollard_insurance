@@ -1,11 +1,6 @@
 package quote.car;
 
 import org.openqa.selenium.TimeoutException;
-
-import static org.junit.Assert.assertNotNull;
-
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -24,7 +19,6 @@ import org.openqa.selenium.JavascriptExecutor;
 /**
  * Unit test for simple App.
  */
-@Test
 public class AboutYourCarNegTest {
     /**
      * Rigorous Test :-)A
@@ -65,7 +59,7 @@ public class AboutYourCarNegTest {
 
     }
 
-    // @AfterTest
+    @AfterTest
     public void tearDown() {
         driver.close();
     }
@@ -167,7 +161,8 @@ public class AboutYourCarNegTest {
         WebElement element = findElementByXpath(xpath, true, timeout);
         try {
             element.sendKeys(value);
-            click("//li[@aria-selected='true']", 5);
+            element.sendKeys(Keys.ENTER);
+            //click("//li[@aria-selected='true']", 5);
         } catch (TimeoutException e) {
             Assert.fail("Unable to fill " + xpath);
         } catch (Exception e) {

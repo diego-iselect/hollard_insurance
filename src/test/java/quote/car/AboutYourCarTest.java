@@ -19,7 +19,6 @@ import org.openqa.selenium.JavascriptExecutor;
 /**
  * Unit test for simple App.
  */
-@Test
 public class AboutYourCarTest {
     /**
      * Rigorous Test :-)A
