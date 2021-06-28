@@ -8,4 +8,6 @@ To run the tests
 
 `cd hollard_insurance`
 
+`mvn clean`
+
 `mvn test`
