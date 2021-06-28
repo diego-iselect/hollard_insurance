@@ -10,9 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
 
@@ -29,11 +27,12 @@ public class AboutYourCarTest {
     String URL = "https://car.iselect.com.au/car/compare-car-insurance/gatewayStore";
     JavascriptExecutor je;
 
+    @Parameters({"suite-chrome-version"})
     @BeforeTest
-    public void setUp() {
+    public void setUp(String chromeVersion) {
 
         // Setup chromedriver
-        WebDriverManager.chromedriver().browserVersion("91.0.4472.114").setup();
+        WebDriverManager.chromedriver().browserVersion(chromeVersion).setup();
 
         options = new ChromeOptions();
         // List of arguments :
