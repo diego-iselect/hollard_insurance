@@ -19,7 +19,7 @@ import org.openqa.selenium.JavascriptExecutor;
  */
 public class AboutYourCarTest {
     /**
-     * Rigorous Test :-)A
+     * Rigorous Test :-)
      */
     WebDriver driver;
     ChromeOptions options;
@@ -28,7 +28,7 @@ public class AboutYourCarTest {
     JavascriptExecutor je;
 
     @Parameters({"suite-chrome-version"})
-    @BeforeTest
+    @BeforeTest (description = "Setup for chromedriver, open browser and access the url")
     public void setUp(String chromeVersion) {
 
         // Setup chromedriver
@@ -58,7 +58,7 @@ public class AboutYourCarTest {
 
     }
 
-    @AfterTest
+   @AfterTest(description = "Close Chrome browser")
     public void tearDown() {
         driver.close();
     }

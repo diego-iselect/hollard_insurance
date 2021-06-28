@@ -19,7 +19,7 @@ import org.openqa.selenium.JavascriptExecutor;
  */
 public class AboutYourCarNegTest {
     /**
-     * Rigorous Test :-)A
+     * Rigorous Test :-)
      */
     WebDriver driver;
     ChromeOptions options;
@@ -28,7 +28,7 @@ public class AboutYourCarNegTest {
     JavascriptExecutor je;
 
     @Parameters({"suite-chrome-version"})
-    @BeforeTest
+    @BeforeTest(description = "Setup for chromedriver, open browser and access the url")
     public void setUp(String chromeVersion) {
 
         // Setup chromedriver
@@ -58,7 +58,7 @@ public class AboutYourCarNegTest {
 
     }
 
-    @AfterTest
+    @AfterTest(description = "Close Chrome browser")
     public void tearDown() {
         driver.close();
     }
@@ -213,11 +213,12 @@ public class AboutYourCarNegTest {
 
     private void testSelectAnOptionErrorMsg(String field) {
         // Acknowledge terms and conditions and Continue
-        if (findElementByXpath("//input[@type='checkbox']/parent::label", false, 5) != null) {
+        WebElement checkbox = findElementByXpath("//input[@type='checkbox']/parent::label", false, 5);
+        if (checkbox != null) {
+            je.executeScript("arguments[0].scrollIntoView(true);", checkbox);
             if (findElementByXpath("//button[text()='Continue']", false, 0) == null) {
                     click("//input[@type='checkbox']/parent::label", 0);
             }
-            je.executeScript("window.scrollBy(0,400)");
             click("//button[text()='Continue']", 5);
             Assert.assertNotNull(findElementByXpath("//span[text()='Please select an option']", true, 5),
             field + "is not mandatory");
