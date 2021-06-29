@@ -17,3 +17,7 @@ To run the tests in command line
 `cd hollard_insurance`
 
 `mvn clean test`
+
+# Reports
+
+Generated reports are inside `hollard_insurance/target/surefire-reports`
