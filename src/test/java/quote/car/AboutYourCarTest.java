@@ -58,7 +58,7 @@ public class AboutYourCarTest {
 
     }
 
-   @AfterTest(description = "Close Chrome browser")
+    @AfterTest(description = "Close Chrome browser")
     public void tearDown() {
         driver.close();
     }
