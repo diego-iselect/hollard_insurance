@@ -172,8 +172,7 @@ public class AboutYourCarNegTest {
     private void fill(String xpath, String value, int timeout) {
         WebElement element = findElementByXpath(xpath, true, timeout);
         try {
-            element.sendKeys(value);
-            element.sendKeys(Keys.ENTER);
+            element.sendKeys(value + Keys.ENTER);
             //click("//li[@aria-selected='true']", 5);
         } catch (TimeoutException e) {
             Assert.fail("Unable to fill " + xpath);

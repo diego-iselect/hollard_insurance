@@ -3,6 +3,18 @@
 <suite name="Testing Car Insurance" parallel="none">
     <parameter name="suite-chrome-version" value="91.0.4472.114" />
     <parameter name="suite-url" value="https://car.iselect.com.au/car/compare-car-insurance/gatewayStore" />
+    <parameter name="suite-make" value="Holden" />
+    <parameter name="suite-model" value="Barina" />
+    <parameter name="suite-year" value="2014" />
+    <parameter name="suite-cartype" value="TM MY14 CD Sedan 4dr Auto 6sp 1.6i" />
+    <parameter name="suite-levelofcover" value="Comprehensive" />
+    <parameter name="suite-reasonforshopping" value="My cover is about to expire" />
+    <parameter name="suite-antitheft" value="Alarm" />
+    <parameter name="suite-factoryfittedoptions" value="Paint - Prestige" />
+    <parameter name="suite-yes" value="Yes" />
+    <parameter name="suite-no" value="No" />
+    <parameter name="suite-insurername" value="Allianz" />
+    <!--parameter name="suite-color" value="Black" /-->
     <test name="FTC-001[Positive Test]">
          <classes>
              <class name="quote.car.AboutYourCarTest"/>

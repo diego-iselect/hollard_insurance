@@ -50,6 +50,7 @@ public class AboutYourCarTest {
         // Create ChromeDriver object
         driver = new ChromeDriver(options);
 
+        // Initialising JavaScriptExecutor
         je = (JavascriptExecutor) driver;
 
         // Open url
@@ -57,73 +58,121 @@ public class AboutYourCarTest {
 
     }
 
-    @AfterTest(description = "Close Chrome browser")
-    public void tearDown() {
+    @AfterTest(description = "Check if submitting 'About Your Car' form directs to the next page")
+    public void tearDown(){
         driver.close();
     }
 
-    // Find a car from the dropdowns
-    @Test(priority = 0, description = "Check if car can be found by specifying details")
-    public void findYourCar() {
-
-        fill("//div[text()='Make']/following-sibling::div/input", "Holden", 20);
-        fill("//div[text()='Model']/following-sibling::div/input", "Barina", 10);
-        fill("//div[text()='Year']/following-sibling::div/input", "2014", 10);
-        fill("//div[text()='Car type or series']/following-sibling::div/input", "TM MY14 CD Sedan 4dr Auto 6sp 1.6i", 10);
-        fill("//div[text()='Colour']/following-sibling::div/input", "Black", 10);
+    @Parameters({"suite-make"})
+    @Test(priority = 0, description = "Fill 'Make' field of the form")
+    public void findYourCar(@Optional("Holden") String value){
+        fill("//div[text()='Make']/following-sibling::div/input", value, 20);
     }
 
-    @Test(priority = 1, description = "Check if details about required cover can be provided")
-    public void selectCoverType() {
-
-        click("//span[text()='Comprehensive']/parent::div/parent::button", 10);
-        // Selection option for the question "Why are you looking for cover?"
-        click("//div[text()='Please select']", 10);
-        click("//div[text()='My cover is about to expire']/parent::li[@role='option']", 10);
+    @Parameters({"suite-model"})
+    @Test(priority = 1, description = "Fill 'Model' field of the form")
+    public void fillModel(@Optional("Barina") String value){
+        fill("//div[text()='Model']/following-sibling::div/input", value, 10);
     }
 
-    @Test(priority = 2, description = "Check if details about fitted car accessories and options can be provided")
-    public void selectCarAccessAndOptions() {
+    @Parameters({"suite-year"})
+    @Test(priority = 2, description = "Fill 'Year' field of the form")
+    public void fillYear(@Optional("2014") String value){
+        fill("//div[text()='Year']/following-sibling::div/input", value, 10);
+    }
 
-        // Select option for the question "Does your car have any anti-theft devices?"
+    @Parameters({"suite-cartype"})
+    @Test(priority = 3, description = "Fill 'Car type of series' field of the form")
+    public void fillCarTypeofSeries(@Optional("TM MY14 CD Sedan 4dr Auto 6sp 1.6i") String value){
+        fill("//div[text()='Car type or series']/following-sibling::div/input", value, 10);
+    }
+    
+    @Parameters({"suite-color"})
+    @Test(priority = 4, description = "Fill 'Colour' field of the form")
+    public void fillColour(@Optional("White") String value){
+        fill("//div[text()='Colour']/following-sibling::div/input", value, 10);
+    }
+
+    @Parameters({"suite-levelofcover"})
+    @Test(priority = 5, description = "Fill 'Level of cover' field of the form")
+    public void fillLevelofCover(@Optional("Comprehensive") String value){
+        click("//span[text()='"+ value +"']/parent::div/parent::button", 10);
+    }
+
+    @Parameters({"suite-reasonforshopping"})
+    @Test(priority = 6, description = "Fill 'Reason for shopping' field of the form")
+    public void fillReasonforShopping(String value){
         click("//div[text()='Please select']", 10);
-        click("//div[text()='Alarm']/parent::li[@role='option']", 10);
+        click("//div[text()='"+ value +"']/parent::li[@role='option']", 10);
+    }
 
-        // Select answer and option for the question "Does your car have any factory
-        // fitted options?'"
+    @Parameters({"suite-antitheft"})
+    @Test(priority = 7, description = "Fill 'Information about anti-theft devices' field of the form")
+    public void fillInAntitheftDevicesInfo(String value){
+        click("//div[text()='Please select']", 10);
+        click("//div[text()='"+ value +"']/parent::li[@role='option']", 10);
+    }
+
+    @Test(priority = 8, description = "Fill 'Information about factory fitted options' field of the form")
+    public void fillFactoryFittedOptionsInfo(){
         click("//div[text()='Does your car have any factory fitted options?']/..//span[text()='Yes']", 10);
-        click("//div[text()='Select factory options, if any']", 10);
-        click("//div[text()='Paint - Prestige']/parent::li[@role='option']", 10);
+    }
 
+    @Parameters({"suite-factoryfittedoptions"})
+    @Test(priority = 9, description = "Fill 'List of factory fitted options' field of the form")
+    public void fillListofFactoryFittedOptions(String value){
+        click("//div[text()='Select factory options, if any']", 10);
+        click("//div[text()='"+ value +"']/parent::li[@role='option']", 10);
+
+        // Click OK if button appears
         if (findElementByXpath("//button[text()='Ok']", false, 5) != null) {
             click("//button[text()='Ok']", 5);
         }
-
-        // Select option for the question "Has your car been fitted with any
-        // non-standard accessories?"
-        click("//div[text()='Has your car been fitted with any non-standard accessories?']/../../following-sibling::div//span[text()='No']", 10);
-
-        // Select option for the question "Does your car have unrepaired accident or
-        // hail damage?"
-        click("//div[text()='Does your car have unrepaired accident or hail damage?']/../../following-sibling::div//span[text()='No']", 10);
-
-        // Select option for the question "Is your vehicle currently insured?"
-        click("//div[text()='Please select']", 10);
-        click("//div[text()='Yes']/parent::li[@role='option']", 10);
-        click("//div[text()='Insurer']", 10);
-        click("//div[text()='Allianz']/parent::li[@role='option']", 10);
-        click("//div[text()='Type of cover']", 10);
-        click("//div[text()='Comprehensive']/parent::li[@role='option']", 10);
-
-        // Acknowledge terms and conditions and Continue
-        click("//input[@type='checkbox']/parent::label", 10);
-        je.executeScript("window.scrollBy(0,400)");
-        click("//button[text()='Continue']", 10);
     }
-    
-    @Test(priority = 3, description = "Check if submitting 'About Your Car' form directs to the next page")
-    public void validateOutcome(){
+
+    @Parameters({"suite-no"})
+    @Test(priority = 10, description = "Fill 'Information about non-standard accessories' field of the form")
+    public void fillNonStandardAccessoriesInfo(@Optional("No") String value){
+        click("//div[text()='Has your car been fitted with any non-standard accessories?']/../../following-sibling::div//span[text()='"+ value +"']",
+                10);
+    }
+
+    @Parameters({"suite-no"})
+    @Test(priority = 11, description = "Fill 'Information about hail damage' field of the form")
+    public void fillHailDamageInfo(@Optional("No") String value){
+        click("//div[text()='Does your car have unrepaired accident or hail damage?']/../../following-sibling::div//span[text()='"+ value +"']",
+                10);
+    }
+
+    @Parameters({"suite-yes"})
+    @Test(priority = 12, description = "Fill 'Information about current insurance' field of the form")
+    public void fillCurrentInsuranceInfo(@Optional("Yes") String value){
+        click("//div[text()='Please select']", 10);
+        click("//div[text()='"+ value +"']/parent::li[@role='option']", 10);
+    }
+
+    @Parameters({"suite-insurername"})
+    @Test(priority = 13, description = "Fill 'Information about current insurer' field of the form")
+    public void fillCurrentInsurerInfo(String value){
+        click("//div[text()='Insurer']", 10);
+        click("//div[text()='"+ value +"']/parent::li[@role='option']", 10);
+    }
+
+    @Parameters({"suite-levelofcover"})
+    @Test(priority = 14, description = "Fill 'Information about current cover' field of the form")
+    public void fillCurrentCoverInfo(String value){
+        click("//div[text()='Type of cover']", 10);
+        click("//div[text()='"+ value +"']/parent::li[@role='option']", 10);
+    }
+
+    @Test(priority = 15, description = "Check if submitting 'About Your Car' form directs to the next page")
+    public void submitForm() {
+        if (findElementByXpath("//button[text()='Continue']", false, 10) == null) {
+            click("//input[@type='checkbox']/parent::label", 10);
+        }
+        click("//button[text()='Continue']", 10);
         findElementByXpath("//*[text()='Usage & Driver']", true, 10);
+        
     }
 
     /***
@@ -137,8 +186,7 @@ public class AboutYourCarTest {
     private void fill(String xpath, String value, int timeout) {
         WebElement element = findElementByXpath(xpath, true, timeout);
         try {
-            element.sendKeys(value);
-            element.sendKeys(Keys.ENTER);
+            element.sendKeys(value + Keys.ENTER);
         } catch (TimeoutException e) {
             Assert.fail("Unable to fill " + xpath);
         } catch (Exception e) {
