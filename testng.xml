@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Testing Car Insurance" parallel="none">
     <parameter name="suite-chrome-version" value="91.0.4472.114" />
+    <parameter name="suite-url" value="https://car.iselect.com.au/car/compare-car-insurance/gatewayStore" />
     <test name="FTC-001[Positive Test]">
          <classes>
              <class name="quote.car.AboutYourCarTest"/>

@@ -24,14 +24,13 @@ public class AboutYourCarNegTest {
     WebDriver driver;
     ChromeOptions options;
     WebDriverWait wait;
-    String URL = "https://car.iselect.com.au/car/compare-car-insurance/gatewayStore";
     JavascriptExecutor je;
 
     // Comment to debug on vscode due to https://github.com/microsoft/vscode-java-test/issues/596
-    @Parameters({"suite-chrome-version"})
+    @Parameters({"suite-chrome-version", "suite-url"})
     @BeforeTest(description = "Setup for chromedriver, open browser and access the url")
     // Comment to debug
-    public void setUp(String chromeVersion) {
+    public void setUp(String chromeVersion, String url) {
     //public void setUp() {
 
         // Setup chromedriver
@@ -59,7 +58,7 @@ public class AboutYourCarNegTest {
         je = (JavascriptExecutor) driver;
 
         // Open url
-        driver.get(URL);
+        driver.get(url);
 
     }
 

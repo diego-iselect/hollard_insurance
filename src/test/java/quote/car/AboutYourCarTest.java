@@ -24,12 +24,11 @@ public class AboutYourCarTest {
     WebDriver driver;
     ChromeOptions options;
     WebDriverWait wait;
-    String URL = "https://car.iselect.com.au/car/compare-car-insurance/gatewayStore";
     JavascriptExecutor je;
 
-    @Parameters({"suite-chrome-version"})
+    @Parameters({"suite-chrome-version", "suite-url"})
     @BeforeTest (description = "Setup for chromedriver, open browser and access the url")
-    public void setUp(String chromeVersion) {
+    public void setUp(String chromeVersion, String url) {
 
         // Setup chromedriver
         WebDriverManager.chromedriver().browserVersion(chromeVersion).setup();
@@ -54,7 +53,7 @@ public class AboutYourCarTest {
         je = (JavascriptExecutor) driver;
 
         // Open url
-        driver.get(URL);
+        driver.get(url);
 
     }
 
